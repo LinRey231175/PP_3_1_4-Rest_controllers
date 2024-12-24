@@ -39,8 +39,7 @@ public class UserServiceImpl implements UserService {
         if (user == null) {
             throw new UsernameNotFoundException("Invalid username or password.");
         }
-        return new org.springframework.security.core.userdetails.User(user.getEmail(),
-                user.getPassword(), user.getAuthorities());
+        return user;
     }
 
     @Override
@@ -62,9 +61,6 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void delete(Long id) {
-        User user = userJpaRepository.findById(id).get();
-        user.setRoles(null);
-        userJpaRepository.save(user);
         userJpaRepository.deleteById(id);
     }
 
